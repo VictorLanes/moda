@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMAFASHION23</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">FMAFASHION23</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Moda que inspira</h1>
+        <p>Descubra o melhor da moda feminina com estilo e atitude.</p>
+    </section>
+
+    <section id="catalogo" class="catalogo">
+        <h2>Catálogo</h2>
+        <div class="produtos">
+            <div class="produto">
+                <img src="img/produtos-exemplo.jpg" alt="Produto 1">
+                <h3>Vestido Floral</h3>
+                <p>R$ 129,90</p>
+                <button onclick="adicionarAoCarrinho('Vestido Floral')">Comprar</button>
+            </div>
+            <div class="produto">
+                <img src="img/produtos-exemplo.jpg" alt="Produto 2">
+                <h3>Conjunto Verão</h3>
+                <p>R$ 149,90</p>
+                <button onclick="adicionarAoCarrinho('Conjunto Verão')">Comprar</button>
+            </div>
+            <!-- Adicione mais produtos aqui -->
+        </div>
+    </section>
+
+    <section id="sobre" class="sobre">
+        <h2>Sobre</h2>
+        <p>A FMAFASHION23 nasceu com o propósito de valorizar o estilo e a autoestima de mulheres incríveis.</p>
+    </section>
+
+    <section id="contato" class="contato">
+        <h2>Contato</h2>
+        <p>Fale conosco via WhatsApp: <a href="https://wa.me/5521987754974" target="_blank">(21) 98775-4974</a></p>
+    </section>
+
+    <div class="carrinho">
+        <h3>Carrinho</h3>
+        <ul id="itens-carrinho"></ul>
+        <a id="finalizar" href="#" target="_blank">Finalizar no WhatsApp</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 FMAFASHION23. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
