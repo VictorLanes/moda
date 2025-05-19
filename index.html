@@ -1,68 +1,141 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FMAFASHION23</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loja Cavabiquini</title>
+  <link rel="stylesheet" href="style_index.css" />
+  <link rel="stylesheet" href="style_carrinho.css" />
+  <style>
+    .icones-usuario-carrinho {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-left: auto;
+    }
+
+    .usuario-nome {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #000;
+    }
+
+    .icone-carrinho {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .icone-carrinho svg {
+      color: #000;
+    }
+
+    .contador-carrinho {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 11px;
+      font-weight: bold;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">FMAFASHION23</div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#catalogo">Catálogo</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="topo">
+    <div class="barra-topo">
+  <!-- LOGO sozinha no canto esquerdo -->
+  <a href="index.html" class="logo-link">
+    <img src="logo/logo site.jpg" alt="Logo da Loja" class="logo logo-sozinha" />
+  </a>
 
-    <section class="hero">
-        <h1>Moda que inspira</h1>
-        <p>Descubra o melhor da moda feminina com estilo e atitude.</p>
-    </section>
+  <!-- Campo de busca centralizado -->
+  <div class="logo-e-busca">
+    <form class="form-busca" onsubmit="buscarProduto(event)">
+      <input type="text" id="campo-busca" placeholder="Buscar produtos..." />
+      <button type="submit" class="botao-busca">🔍</button>
+    </form>
+  </div>
 
-    <section id="catalogo" class="catalogo">
-        <h2>Catálogo</h2>
-        <div class="produtos">
-            <div class="produto">
-                <img src="img/produtos-exemplo.jpg" alt="Produto 1">
-                <h3>Vestido Floral</h3>
-                <p>R$ 129,90</p>
-                <button onclick="adicionarAoCarrinho('Vestido Floral')">Comprar</button>
-            </div>
-            <div class="produto">
-                <img src="img/produtos-exemplo.jpg" alt="Produto 2">
-                <h3>Conjunto Verão</h3>
-                <p>R$ 149,90</p>
-                <button onclick="adicionarAoCarrinho('Conjunto Verão')">Comprar</button>
-            </div>
-            <!-- Adicione mais produtos aqui -->
-        </div>
-    </section>
+  <!-- Usuário e Carrinho -->
+  <div class="icones-usuario-carrinho">
+    <div class="usuario-nome" id="usuario-info"></div>
 
-    <section id="sobre" class="sobre">
-        <h2>Sobre</h2>
-        <p>A FMAFASHION23 nasceu com o propósito de valorizar o estilo e a autoestima de mulheres incríveis.</p>
-    </section>
-
-    <section id="contato" class="contato">
-        <h2>Contato</h2>
-        <p>Fale conosco via WhatsApp: <a href="https://wa.me/5521987754974" target="_blank">(21) 98775-4974</a></p>
-    </section>
-
-    <div class="carrinho">
-        <h3>Carrinho</h3>
-        <ul id="itens-carrinho"></ul>
-        <a id="finalizar" href="#" target="_blank">Finalizar no WhatsApp</a>
+    <div class="icone-carrinho" onclick="abrirCarrinho()" title="Carrinho">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 2l1 5h10l1-5z" fill="#000"/>
+        <path d="M5 7h14l-1.5 11.2a2 2 0 0 1-2 1.8H8.5a2 2 0 0 1-2-1.8L5 7z" fill="#000"/>
+      </svg>
+      <span class="contador-carrinho" id="carrinho-count">0</span>
     </div>
+  </div>
+</div>
 
-    <footer>
-        <p>&copy; 2025 FMAFASHION23. Todos os direitos reservados.</p>
-    </footer>
 
-    <script src="script.js"></script>
+    <nav class="menu-categorias"></nav>
+  </header>
+
+  <main class="produtos-container">
+    <div id="lista-produtos" class="grade-produtos"></div>
+  </main>
+
+  <div class="alerta-carrinho" id="alerta-carrinho">
+    Produto adicionado ao carrinho com sucesso!
+  </div>
+
+  <div class="carrinho-lateral" id="carrinho-lateral">
+    <div class="topo">
+      <span>COMPRA 100% SEGURA</span>
+      <button id="fechar-carrinho">✕</button>
+    </div>
+    <div class="carrinho-itens" id="carrinho-itens"></div>
+    <div class="total-carrinho">
+      <p>Subtotal: <span id="subtotal">R$ 0,00</span></p>
+      <div>
+        <input type="text" placeholder="00000-000" />
+        <button>Calcular</button>
+      </div>
+      <div class="botoes-carrinho">
+        <button onclick="fecharCarrinho()">CONTINUAR COMPRANDO</button>
+        <button onclick="finalizarCompra()">FINALIZAR COMPRA</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script_site.js"></script>
+  <script src="carrinho.js"></script>
+  <script src="script_index.js"></script>
+
+  <!-- ✅ SCRIPT DE LOGIN/SAIR -->
+  <script>
+    const info = document.getElementById("usuario-info");
+    const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+    if (usuario) {
+      info.innerHTML = `👤 Olá, ${usuario.nome} 
+        <button onclick="logout()" style="margin-left: 8px; padding: 5px 8px; background: #ccc; border: none; border-radius: 4px; cursor: pointer;">
+          Sair
+        </button>`;
+    } else {
+      info.innerHTML = `<a href="login.html" style="text-decoration: none; color: #000;">👤 Entrar</a>`;
+    }
+
+    function logout() {
+      localStorage.removeItem("usuarioLogado");
+      location.reload();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const contador = document.getElementById("carrinho-count");
+      const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+      const totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+      contador.textContent = totalItens;
+    });
+  </script>
 </body>
 </html>
